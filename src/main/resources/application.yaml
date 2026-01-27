@@ -1,9 +1,22 @@
 server:
   port: 9000
-
 spring:
   application:
     name: api-gateway
+  config:
+    import: "optional:consul:"
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${GOOGLE_CLIENT_ID}
+            client-secret: ${GOOGLE_CLIENT_SECRET}
+            scope: openid, email, profile
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+        provider:
+          google:
+            issuer-uri: https://accounts.google.com
   cloud:
     gateway:
       globalcors:
