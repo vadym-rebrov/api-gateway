@@ -4,7 +4,7 @@ spring:
   application:
     name: api-gateway
   config:
-    import: "optional:consul:"
+    import: optional:consul:/
   security:
     oauth2:
       client:
@@ -18,6 +18,11 @@ spring:
           google:
             issuer-uri: https://accounts.google.com
   cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        health-check-path: /health
     gateway:
       globalcors:
         cors-configurations:
@@ -35,8 +40,12 @@ spring:
           uri: http://localhost:8080
           predicates:
             - Path=/api/movie/**, /api/director/**
+          filters:
+            - TokenRelay=
 
         - id: session-service
-          uri: http://localhost:3050
+          uri: http://localhost:3000
           predicates:
             - Path=/api/movie-session/**
+          filters:
+            - TokenRelay=
