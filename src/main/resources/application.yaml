@@ -37,14 +37,14 @@ spring:
 
       routes:
         - id: movie-service
-          uri: http://localhost:8080
+          uri: lb://movie-service
           predicates:
             - Path=/api/movie/**, /api/director/**
           filters:
             - TokenRelay=
 
         - id: session-service
-          uri: http://localhost:3000
+          uri: lb://session-service
           predicates:
             - Path=/api/movie-session/**
           filters:
