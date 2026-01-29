@@ -39,7 +39,7 @@ spring:
         - id: movie-service
           uri: lb://movie-service
           predicates:
-            - Path=/api/movie/**, /api/director/**
+            - Path=/api/movie/**, /api/director/**, /api/genre/**
           filters:
             - TokenRelay=
 
@@ -49,3 +49,7 @@ spring:
             - Path=/api/movie-session/**
           filters:
             - TokenRelay=
+        - id: frontend
+          uri: lb://frontend
+          predicates:
+            - Path=/**
