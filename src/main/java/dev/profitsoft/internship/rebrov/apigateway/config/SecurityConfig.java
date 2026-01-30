@@ -19,6 +19,7 @@ public class SecurityConfig {
 
             return http
                     .csrf(ServerHttpSecurity.CsrfSpec::disable)
+                    .cors(ServerHttpSecurity.CorsSpec::disable)
                     .authorizeExchange(exchanges -> exchanges
                             .pathMatchers("/login/**", "/oauth2/**", "/error").permitAll()
                             .pathMatchers("/", "/index.html", "/static/**", "/*.js", "/*.css", "/*.ico").permitAll()

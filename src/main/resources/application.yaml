@@ -1,3 +1,7 @@
+logging:
+  level:
+    org.springframework.security: DEBUG
+    org.springframework.web: DEBUG
 server:
   port: 9000
   error:
@@ -27,6 +31,7 @@ spring:
       discovery:
         health-check-path: /health
     gateway:
+
       routes:
         - id: movie-service
           uri: lb://movie-service
