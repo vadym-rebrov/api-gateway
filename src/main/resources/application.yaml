@@ -1,5 +1,8 @@
 server:
   port: 9000
+  error:
+    include-message: always
+    include-binding-errors: always
 spring:
   application:
     name: api-gateway
@@ -24,32 +27,18 @@ spring:
       discovery:
         health-check-path: /health
     gateway:
-      globalcors:
-        cors-configurations:
-          '[/**]':
-            allowedOrigins: "http://localhost:3000"
-            allowedMethods:
-              - GET
-              - POST
-              - PUT
-              - DELETE
-            allowedHeaders: "*"
-
       routes:
         - id: movie-service
           uri: lb://movie-service
           predicates:
             - Path=/api/movie/**, /api/director/**, /api/genre/**
-          filters:
-            - TokenRelay=
 
         - id: session-service
           uri: lb://session-service
           predicates:
             - Path=/api/movie-session/**
-          filters:
-            - TokenRelay=
+
         - id: frontend
-          uri: lb://frontend
+          uri: http://frontend:80
           predicates:
             - Path=/**
