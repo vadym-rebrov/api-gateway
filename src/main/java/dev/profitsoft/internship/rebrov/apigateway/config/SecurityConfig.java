@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.web.reactive.EnableWebFlux
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.security.web.server.authentication.RedirectServerAuthenticationSuccessHandler;
+import org.springframework.security.web.server.authentication.logout.RedirectServerLogoutSuccessHandler;
 
 @Configuration
 @EnableWebFluxSecurity
@@ -16,7 +17,7 @@ public class SecurityConfig {
         public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
             RedirectServerAuthenticationSuccessHandler successHandler =
                     new RedirectServerAuthenticationSuccessHandler("/");
-
+            RedirectServerLogoutSuccessHandler logoutHandler = new RedirectServerLogoutSuccessHandler();
             return http
                     .csrf(ServerHttpSecurity.CsrfSpec::disable)
                     .cors(ServerHttpSecurity.CorsSpec::disable)
@@ -28,6 +29,10 @@ public class SecurityConfig {
                     )
                     .oauth2Login(oauth2 -> oauth2
                             .authenticationSuccessHandler(successHandler)
+                    )
+                    .logout(logout -> logout
+                            .logoutUrl("/logout")
+                            .logoutSuccessHandler(logoutHandler)
                     )
                     .build();
         }
