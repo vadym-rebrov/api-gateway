@@ -38,8 +38,8 @@ spring:
           predicates:
             - Path=/api/movie/**, /api/director/**, /api/genre/**
 
-        - id: session-service
-          uri: lb://session-service
+        - id: movie-session-service
+          uri: lb://movie-session-service
           predicates:
             - Path=/api/movie-session/**
 
