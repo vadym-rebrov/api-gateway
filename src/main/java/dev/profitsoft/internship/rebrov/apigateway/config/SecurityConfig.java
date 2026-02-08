@@ -23,6 +23,7 @@ public class SecurityConfig {
                     .csrf(ServerHttpSecurity.CsrfSpec::disable)
                     .cors(ServerHttpSecurity.CorsSpec::disable)
                     .authorizeExchange(exchanges -> exchanges
+                            .pathMatchers("/actuator/**").permitAll()
                             .pathMatchers("/login/**", "/oauth2/**", "/error").permitAll()
                             .pathMatchers("/", "/index.html", "/static/**", "/*.js", "/*.css", "/*.ico").permitAll()
                             .pathMatchers("/api/**").authenticated()
