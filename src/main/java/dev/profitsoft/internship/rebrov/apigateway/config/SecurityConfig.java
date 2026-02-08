@@ -26,7 +26,7 @@ public class SecurityConfig {
                             .pathMatchers("/login/**", "/oauth2/**", "/error").permitAll()
                             .pathMatchers("/", "/index.html", "/static/**", "/*.js", "/*.css", "/*.ico").permitAll()
                             .pathMatchers("/api/**").authenticated()
-                            .anyExchange().permitAll()
+                            .anyExchange().authenticated()
                     )
                     .oauth2Login(oauth2 -> oauth2
                             .authenticationSuccessHandler(successHandler)
